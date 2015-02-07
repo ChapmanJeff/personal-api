@@ -1,3 +1,23 @@
-This is the me html
+<input type="text" ng-model="url" placeholder="Add a mention">Add a mention</input>
+<button ng-click="postData(url)">Submit</button></br>
+<input type="text" ng-model="Refname" placeholder="Add a reference">Add a Reference</input>
+<button ng-click="postRefData(Refname)">Submit</button></br>
+My favorite hobbies are:
+<ul>
+	<li ng-repeat="hobby in hobbies">{{hobby.hobby}}</li>
+</ul> 
 
-{{name}}
+My Occupations are:
+<ul>
+	<li ng-repeat="job in occupation">{{job.occupation}}</li>
+</ul> 
+
+I've been mentioned in these places:
+<ul>
+	<li ng-repeat="mention in mentions">{{mention.mention}}</li>
+</ul> 
+
+My References are:
+<ul>
+	<li ng-repeat="ref in references">{{ref.reference}}</li>
+</ul> 

@@ -8,10 +8,10 @@ app.use(bodyParser.json());
 var user = {
 	name: 'Jeff Chapman', 
 	location: 'Walnut Creek, CA', 
-	hobbies: ['Hangin with Marie, Outdoors Anything, Guitar'], 
-	occupation: ['Realtor', 'Real Estate Investor', 'Coder'],
-	mentions: ['http://www.linkedin.com/in/chapmanjeffrey','http://facebook.com/chapmanjeff'],
-	references: ['Brett Blodgett', 'Marie Bates'],
+	hobbies: [{hobby: 'Hangin with Marie'},{hobby: 'Outdoors Anything'}, {hobby: 'Guitar'}], 
+	occupation: [{occupation: 'Realtor'},{occupation: 'Real Estate Investor'},{occupation:'Coder'}],
+	mentions: [{mention:'http://www.linkedin.com/in/chapmanjeffrey'},{mention:'http://facebook.com/chapmanjeff'}],
+	references: [{reference:'Brett Blodgett'},{reference:'Marie Bates'}],
 	skills: [{
 		id: 1,
 		name: 'JavaScript',
@@ -28,10 +28,19 @@ var user = {
 
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 	next();
 })
+
+app.options('/', function(req, res) {
+	res.send();
+})
+
+
+app.get('/user', function (req, res) {
+	res.json(user);
+});
 
 app.get('/name', function (req, res) {
 	res.json(user.name);
@@ -71,7 +80,7 @@ app.get('/mentions', function (req, res) {
 });
 
 app.post('/mentions', function (req, res) {
-	user.mentions.push(req.body.mentions);
+	user.mentions.push(req.body);
 	res.json(user.mentions);
 })
 
@@ -80,7 +89,7 @@ app.get('/references', function (req, res) {
 });
 
 app.post('/references', function (req, res) {
-	user.references.push(req.body.references);
+	user.references.push(req.body);
 	res.json(user.references);
 })
 
