@@ -33,13 +33,13 @@ app.use(function(req, res, next) {
 	next();
 })
 
-app.options('/', function(req, res) {
+app.options('/', function(req, res) {			// Could use /api/
 	res.send();
 })
 
 
-app.get('/user', function (req, res) {
-	res.json(user);
+app.get('/user', function (req, res) {		// Could use /api/user so that normal user couldnt go see 
+	res.json(user);														// your data. Hides it one more level
 });
 
 app.get('/name', function (req, res) {
@@ -71,7 +71,7 @@ app.get('/occupation', function (req, res) {
 	}
 });
 
-app.get('/occupation/latest', function (req, res) {
+app.get('/occupation/latest', function (req, res) {  
 	res.json(user.occupation[user.occupation.length - 1]);
 });
 
@@ -125,6 +125,20 @@ app.get('/skills', function (req, res) {
 	res.json(user.skills);
 	}
 });
+
+/* OR
+responseArr[];
+if(rew.query.experience) {
+	for(var i = 0; i < user.skills.length; i ++) {
+	if(req.query.experience == user.skills[i].experience) {
+	responseArr.push(me.skills[i])
+	}
+	}
+	res.json(responseArr)
+} else {
+	res.json(user.skills);
+	}
+*/
 
 app.post('/skills', function (req, res) {
 	user.skills.push(req.body);
